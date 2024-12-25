@@ -1,5 +1,6 @@
 package com.ai.context.custom.bot;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.ai.chat.client.ChatClient;
@@ -17,14 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/custom")
+@RequestMapping("/")
 @SpringBootApplication
 public class CustomContextAiBotApplication {
 
@@ -48,6 +52,12 @@ public class CustomContextAiBotApplication {
 				.build();
 	}
 
+	@Hidden
+	@GetMapping("/")
+	public void redirect( HttpServletResponse response ) throws IOException {
+		response.sendRedirect("http://localhost:8080/swagger-ui/index.html");
+	}
+	
 	@GetMapping("/chat")
 	public String chatWithMe( @RequestParam String prompt ) {
 		return chatClient.prompt(prompt).call().content();
