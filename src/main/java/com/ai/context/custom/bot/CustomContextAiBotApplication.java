@@ -85,7 +85,7 @@ public class CustomContextAiBotApplication {
 	@Bean
 	public OpenAPI defineOpenApi() {
 	   Server server = new Server();
-	   server.setUrl("http://localhost:8080/");
+	   server.setUrl("https://custom-ai-bot-a7bebpexhce8f3fp.canadacentral-01.azurewebsites.net/");
 	   server.setDescription("dev");
 
 	   Contact myContact = new Contact();
